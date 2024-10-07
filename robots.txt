@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://faf-games.github.io/sitemap.xml
+Sitemap: https://67unblockedgames.pages.dev/sitemap.xml
