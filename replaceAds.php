@@ -55,7 +55,7 @@ if ($adContentDiv->length > 0) {
     foreach ($adContentDiv as $contentDiv) {
         // Create a new DOMDocument fragment to handle complex HTML
         //$newHTML = '<div>Your new complex HTML content here.</div>'; // Replace with your actual HTML
-	$newHTML = '<div></div>'; // Replace with your actual HTML
+	$newHTML = '<div>3kh0 Games</div>'; // Replace with your actual HTML
         $fragment = $dom->createDocumentFragment();
         $fragment->appendXML($newHTML);
 
