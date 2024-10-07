@@ -1,0 +1,50 @@
+name: Update Ads and Analytics Scripts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  replace-multiline-ads-and-analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt-get install -y sed
+
+      - name: Replace old ad code block
+        run: |
+          # Define file paths for old and new ad blocks
+          OLD_ADS_FILE="scripts/old_ads.txt"
+          NEW_ADS_FILE="scripts/new_ads.txt"
+          
+          # Escape special characters for sed
+          OLD_ADS=$(sed -e 's/[\/&]/\\&/g' $OLD_ADS_FILE)
+          NEW_ADS=$(sed -e 's/[\/&]/\\&/g' $NEW_ADS_FILE)
+          
+          # Find and replace old ads with new ads
+          find . -name "*.html" -exec sed -i ":a;N;\$!ba;s/$OLD_ADS/$NEW_ADS/g" {} \;
+
+      - name: Replace old analytics code block
+        run: |
+          # Define file paths for old and new analytics blocks
+          OLD_ANALYTICS_FILE="scripts/old_analytics.txt"
+          NEW_ANALYTICS_FILE="scripts/new_analytics.txt"
+          
+          # Escape special characters for sed
+          OLD_ANALYTICS=$(sed -e 's/[\/&]/\\&/g' $OLD_ANALYTICS_FILE)
+          NEW_ANALYTICS=$(sed -e 's/[\/&]/\\&/g' $NEW_ANALYTICS_FILE)
+          
+          # Find and replace old analytics with new analytics
+          find . -name "*.html" -exec sed -i ":a;N;\$!ba;s/$OLD_ANALYTICS/$NEW_ANALYTICS/g" {} \;
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Replaced old ad and analytics scripts with new ones"
+          git push
