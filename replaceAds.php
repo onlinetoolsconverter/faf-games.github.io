@@ -12,8 +12,10 @@ function replaceAdsAndAnalytics($filePath) {
 
   $html = str_replace('https://faf-games.github.io/', 'https://67unblockedgames.pages.dev/', $html);
 
-	//removing index.html, to mathc cloudflare redirect to base url
-	 $html = str_replace('index.html', '', $html);
+  //removing index.html, to mathc cloudflare redirect to base url
+  $html = str_replace('index.html', '', $html);
+ //for game pages
+$html = str_replace('.html', '', $html);
 	
 	
 
