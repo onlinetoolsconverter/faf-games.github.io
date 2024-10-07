@@ -17,7 +17,7 @@ $dom = new DOMDocument();
 libxml_use_internal_errors(true);
 
 // Load the HTML into the DOMDocument object
-$dom->loadHTML($htmlContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+$dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
 // Create an XPath object to query the DOM
 $xpath = new DOMXPath($dom);
