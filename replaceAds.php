@@ -12,6 +12,11 @@ function replaceAdsAndAnalytics($filePath) {
 
   $html = str_replace('https://faf-games.github.io/', 'https://67unblockedgames.pages.dev/', $html);
 
+ //removing the old custom ads code
+$html = str_replace('<div>3kh0 Games</div>', '', $html);
+$html = str_replace('<div></div>', '', $html);
+
+	
   //removing index.html, to mathc cloudflare redirect to base url
   $html = str_replace('index.html', '', $html);
  //for game pages
@@ -55,22 +60,29 @@ if ($adDiv->length > 0) {
     }
 }
 
-// 4. Insert new complex HTML into the "banner-ad-content" div, placing it first
-/*
+// 4. Insert new complex HTML into the "banner-ad-content" div, allowing updates by removing old content first
 $adContentDiv = $xpath->query('//div[@class="banner-ad-content"]');
 if ($adContentDiv->length > 0) {
     foreach ($adContentDiv as $contentDiv) {
+        // Check if the content with a unique ID or class exists
+        $existingContent = $xpath->query('.//div[@class="custom-html"]', $contentDiv);
+        if ($existingContent->length > 0) {
+            // Remove the old content if found
+            foreach ($existingContent as $oldNode) {
+                $oldNode->parentNode->removeChild($oldNode);
+            }
+        }
+
         // Create a new DOMDocument fragment to handle complex HTML
-        //$newHTML = '<div>Your new complex HTML content here.</div>'; // Replace with your actual HTML
-	$newHTML = '<div>3kh0 Games</div>'; // Replace with your actual HTML
+        $newHTML = '<div class="custom-html">3kh0 Games</div>'; // Replace with your actual HTML
         $fragment = $dom->createDocumentFragment();
         $fragment->appendXML($newHTML);
 
-        // Insert new content at the beginning of the "banner-ad-content" div
+        // Insert the new content at the beginning of the "banner-ad-content" div
         $contentDiv->insertBefore($fragment, $contentDiv->firstChild);
     }
 }
-*/
+
 	
 // Save or display the modified HTML
 //echo $dom->saveHTML();
