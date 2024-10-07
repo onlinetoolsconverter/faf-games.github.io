@@ -12,15 +12,13 @@ function replaceAdsAndAnalytics($filePath) {
 
   $html = str_replace('https://faf-games.github.io/', 'https://67unblockedgames.pages.dev/', $html);
 
- //removing the old custom ads code
-$html = str_replace('<div>3kh0 Games</div>', '', $html);
-$html = str_replace('<div></div>', '', $html);
+ 
 
 	
   //removing index.html, to mathc cloudflare redirect to base url
   $html = str_replace('index.html', '', $html);
  //for game pages
-$html = str_replace('.html', '', $html);
+ $html = str_replace('.html', '', $html);
 	
 	
 
@@ -35,6 +33,15 @@ $dom->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
 // Create an XPath object to query the DOM
 $xpath = new DOMXPath($dom);
+
+// Fix the canonical URL
+$canonicalLink = $xpath->query('//link[@rel="canonical"]');
+if ($canonicalLink->length > 0) {
+    foreach ($canonicalLink as $link) {
+        $link->setAttribute('href', 'https://67unblockedgames.pages.dev' . $link->getAttribute('href'));
+    }
+}
+
 
 // 1. Remove the script that contains the DoubleClick script source
 $doubleClickScript = $xpath->query('//script[@src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"]');
