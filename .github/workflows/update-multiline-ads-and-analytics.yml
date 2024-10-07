@@ -15,18 +15,16 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install -y sed
 
-      - name: Replace old ad code block
+      - name: Remove old ad code block and replace with comment
         run: |
-          # Define file paths for old and new ad blocks
-          OLD_ADS_FILE="scripts/old_ads.txt"
-          NEW_ADS_FILE="scripts/new_ads.txt"
+          REMOVE_ADS_FILE="scripts/old_ads.txt"
           
-          # Escape special characters for sed
-          OLD_ADS=$(sed -e 's/[\/&]/\\&/g' $OLD_ADS_FILE)
-          NEW_ADS=$(sed -e 's/[\/&]/\\&/g' $NEW_ADS_FILE)
+          # Define the comment to replace ads
+          MY_ADS="scripts/new_ads.txt"
           
-          # Find and replace old ads with new ads
-          find . -name "*.html" -exec sed -i ":a;N;\$!ba;s/$OLD_ADS/$NEW_ADS/g" {} \;
+          # Remove the old ad block and replace with the comment
+          find . -name "*.html" -exec perl -0777 -pi -e 's/\Q$(cat $REMOVE_ADS_FILE)\E/(cat $MY_ADS)/gs' {} \;
+
 
       - name: Replace old analytics code block
         run: |
