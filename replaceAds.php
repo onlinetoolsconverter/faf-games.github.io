@@ -11,7 +11,9 @@ function replaceAdsAndAnalytics($filePath) {
    $html = str_replace('G-6BPGNZNTLZ', 'G-NJ6457W9EC', $html);	
 
   $html = str_replace('https://faf-games.github.io/', 'https://67unblockedgames.pages.dev/', $html);
-	 $html = str_replace('<div>3kh0 Games</div>', '', $html);
+
+	//removing index.html, to mathc cloudflare redirect to base url
+	 $html = str_replace('index.html', '', $html);
 	
 	
 
@@ -52,6 +54,7 @@ if ($adDiv->length > 0) {
 }
 
 // 4. Insert new complex HTML into the "banner-ad-content" div, placing it first
+/*
 $adContentDiv = $xpath->query('//div[@class="banner-ad-content"]');
 if ($adContentDiv->length > 0) {
     foreach ($adContentDiv as $contentDiv) {
@@ -65,7 +68,8 @@ if ($adContentDiv->length > 0) {
         $contentDiv->insertBefore($fragment, $contentDiv->firstChild);
     }
 }
-
+*/
+	
 // Save or display the modified HTML
 //echo $dom->saveHTML();
 
