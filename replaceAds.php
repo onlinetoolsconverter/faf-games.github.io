@@ -10,6 +10,9 @@ function replaceAdsAndAnalytics($filePath) {
 
    $html = str_replace('G-6BPGNZNTLZ', 'G-NJ6457W9EC', $html);	
 
+  $html = str_replace('https://faf-games.github.io/', 'https://67unblockedgames.pages.dev/', $html);	
+	
+
     // Create a new DOMDocument
 $dom = new DOMDocument();
 
